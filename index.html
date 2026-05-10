@@ -1,44 +1,230 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Basit Oda</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gül & Sen | Kalbimin Defteri</title>
     <style>
-        body { font-family: sans-serif; text-align: center; background: #f0f2f5; }
-        #oda { border: 2px solid #333; width: 300px; margin: 20px auto; padding: 20px; background: white; border-radius: 15px; }
-        .oyuncu { background: #e1ffc7; margin: 5px; padding: 10px; border-radius: 5px; }
+        :root {
+            /* Tamamen Romantik Renk Paleti */
+            --bg-color: #fff5f8;       /* Çok açık pembe, sıcak */
+            --text-color: #5d4037;     /* Tatlı kahverengi, okunaklı */
+            --accent-pink: #ff8fab;    /* Ana romantik pembe */
+            --soft-white: #ffffff;
+            --heart-red: #ff4d4d;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Daha yumuşak font */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column; /* Mobilde de iyi görünmesi için alt alta */
+            align-items: center;
+            gap: 30px;
+        }
+
+        /* Profil Kısmı - Artık Daha Zarif */
+        .sidebar {
+            text-align: center;
+            background: var(--soft-white);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(255, 143, 171, 0.2); /* Hafif pembe gölge */
+            border: 2px solid var(--accent-pink);
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .profile-pic {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%; /* Tam yuvarlak */
+            border: 5px solid var(--accent-pink);
+            object-fit: cover;
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.05); /* Üzerine gelince hafif büyüme */
+        }
+
+        .names h1 {
+            font-size: 28px;
+            margin: 0;
+            color: var(--text-color);
+        }
+
+        /* İnteraktif "G ❤️ B" Başlığı - Pembe ve Zarif */
+        .clickable-header {
+            cursor: pointer;
+            color: var(--accent-pink);
+            font-size: 24px;
+            margin: 10px 0;
+            display: inline-block;
+            transition: color 0.3s, transform 0.2s;
+        }
+
+        .clickable-header:hover {
+            color: var(--heart-red);
+            transform: scale(1.1) rotate(-5deg); /* Hafif eğilme efekti */
+        }
+
+        /* Ana İçerik Alanı - Kalbimin Defteri */
+        .main-content {
+            width: 100%;
+            background: var(--soft-white);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(255, 143, 171, 0.1);
+            border: 1px solid #ffe0e9;
+        }
+
+        .bio-box h3 {
+            color: var(--accent-pink);
+            border-bottom: 2px solid #ffe0e9;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        .bio-box p, .bio-box li {
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        /* Kalpli Liste İşareti */
+        .heart-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .heart-list li::before {
+            content: "❤️ ";
+            color: var(--heart-red);
+            margin-right: 10px;
+        }
+
+        /* Modal (Gizli Sürpriz Penceresi) - Çok Romantik */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(93, 64, 55, 0.7); /* Koyu kahverengi şeffaf arka plan */
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px); /* Arka planı bulandırır */
+        }
+
+        .modal-content {
+            background-color: var(--soft-white);
+            padding: 30px;
+            border-radius: 25px;
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            border: 4px solid var(--accent-pink);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Atlamalı açılış efekti */
+        }
+
+        .modal-img {
+            width: 100%;
+            max-height: 300px;
+            border-radius: 15px;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 2px solid #ffe0e9;
+        }
+
+        /* Prenses Yazısı */
+        .princess-text {
+            color: var(--text-color);
+            font-size: 26px;
+            font-family: 'Georgia', serif; /* Daha masalsı bir font */
+            font-style: italic;
+            margin: 0;
+        }
+
+        .princess-subtext {
+            color: #8d6e63;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
     </style>
 </head>
 <body>
 
-    <h1>Sesli Oda Taslağı</h1>
-    
-    <div id="oda">
-        <h3>İçeridekiler</h3>
-        <div id="liste">
-            <p>Henüz kimse yok...</p>
+<div class="container">
+    <div class="sidebar">
+        <!-- Buradaki resim dosya adını kontrol et: -->
+        <img src="ösösös.jpg" alt="Gül'ün Fotoğrafı" class="profile-pic"> 
+        <div class="names">
+            <h1>Gül</h1>
+            <!-- Tıklanabilir Romantik Başlık -->
+            <h2 class="clickable-header" onclick="showSurprise()">G ❤️ B</h2>
+            <p style="font-size: 13px; color: #a1887f;">(Kalbimin şifresi burada...)</p>
         </div>
     </div>
 
-    <input type="text" id="isimInput" placeholder="Adını yaz...">
-    <button onclick="katil()">Odaya Gir</button>
+    <div class="main-content">
+        <div class="bio-box">
+            <h3>📖 Kalbimin Defteri</h3>
+            <p><strong>Hoş geldin canım Gül!</strong></p>
+            <p>Bu köşe, tamamen sana ve bizim güzel hikayemize ayrıldı. Sadece kodlardan değil, sevgiden yapıldı bu site.</p>
+            
+            <p>Seninle ilgili unutamadığım bazı şeyler:</p>
+            <ul class="heart-list">
+                <li>Gülüşün... Dünyadaki en huzurlu an.</li>
+                <li>Gözlerindeki o sıcaklık, içimi ısıtan tek şey.</li>
+                <li>Birlikte kurduğumuz hayaller, en büyük heyecanım.</li>
+                <li>Sadece sen olduğun için, her gün yeniden şükrediyorum.</li>
+            </ul>
+            
+            <p>Hayatımın en güzel hikayesi sensin. ❤️</p>
+        </div>
+    </div>
+</div>
 
-    <script>
-        function katil() {
-            let isim = document.getElementById('isimInput').value;
-            if(isim) {
-                let liste = document.getElementById('liste');
-                // Eğer ilk kişi giriyorsa "henüz kimse yok" yazısını sil
-                if(liste.innerHTML.includes("Henüz")) liste.innerHTML = "";
-                
-                // Yeni bir oyuncu kutusu oluştur
-                liste.innerHTML += <div class="oyuncu">🟢 ${isim}</div>;
-                document.getElementById('isimInput').value = ""; // Kutuyu temizle
-            } else {
-                alert("Lütfen bir isim yaz!");
-            }
-        }
-    </script>
+<!-- Gizli Sürpriz Penceresi -->
+<div id="myModal" class="modal" onclick="closeSurprise()">
+    <div class="modal-content" onclick="event.stopPropagation()"> <!-- Pencere içine tıklayınca kapanmasın -->
+        <img src="ösösös.jpg" class="modal-img">
+        <h2 class="princess-text">İşte benim prensesim de bu! 👑</h2>
+        <p class="princess-subtext">Hayatımı güzelleştiren o eşsiz insan.</p>
+        <button style="margin-top:20px; padding: 10px 20px; border-radius: 20px; border: none; background-color: var(--accent-pink); color: white; cursor: pointer;" onclick="closeSurprise()">Kapat ❤️</button>
+    </div>
+</div>
+
+<script>
+    function showSurprise() {
+        document.getElementById("myModal").style.display = "flex";
+    }
+
+    function closeSurprise() {
+        document.getElementById("myModal").style.display = "none";
+    }
+</script>
 
 </body>
 </html>
